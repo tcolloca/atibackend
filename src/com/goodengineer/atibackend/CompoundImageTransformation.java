@@ -28,4 +28,8 @@ public class CompoundImageTransformation implements ImageTransformation {
 		if (!transformations.isEmpty())
 			transformations.removeLast();
 	}
+	
+	public void clearTransformations() {
+		transformations.clear();
+	}
 }

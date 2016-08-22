@@ -11,4 +11,12 @@ public class ImageUtils {
 		}
 		return croppedImage;
 	}
+	
+	public static void copy(ImageSource from, ImageSource to) {
+		for (int x = 0; x < from.getWidth(); x++) {
+			for (int y = 0; y < from.getHeight(); y++) {
+				to.setPixel(x, y, from.getPixel(x, y));
+			}
+		}
+	}
 }
