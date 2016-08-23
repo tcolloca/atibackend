@@ -37,7 +37,7 @@ public class ImageUtils {
 				max = Math.max(max, imageSource.getPixel(x, y));
 			}
 		}
-//		only normalize if it's necessary
+		// only normalize if it's necessary
 		if (min >= 0 && max <= 255)
 			return;
 		for (int x = 0; x < imageSource.getWidth(); x++) {
@@ -46,5 +46,25 @@ public class ImageUtils {
 				imageSource.setPixel(x, y, color);
 			}
 		}
+	}
+
+	/**
+	 * 
+	 * @param imageSource
+	 *            needs to have pixels between 0 and 255 (at least for this
+	 *            method)
+	 */
+	public static float[] createHistogram(ImageSource imageSource) {
+		float[] histogram = new float[256];
+		for (int x = 0; x < imageSource.getWidth(); x++) {
+			for (int y = 0; y < imageSource.getHeight(); y++) {
+				histogram[imageSource.getPixel(x, y)]++;
+			}
+		}
+		int totalPixels = imageSource.getWidth() * imageSource.getHeight();
+		for (int i = 0; i < histogram.length; i++) {
+			histogram[i] = histogram[i] / totalPixels;
+		}
+		return histogram;
 	}
 }
