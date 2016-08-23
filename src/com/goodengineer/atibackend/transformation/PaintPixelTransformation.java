@@ -1,4 +1,6 @@
-package com.goodengineer.atibackend;
+package com.goodengineer.atibackend.transformation;
+
+import com.goodengineer.atibackend.ImageSource;
 
 public class PaintPixelTransformation implements ImageTransformation {
 

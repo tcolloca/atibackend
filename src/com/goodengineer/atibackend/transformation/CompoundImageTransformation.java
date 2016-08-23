@@ -1,6 +1,8 @@
-package com.goodengineer.atibackend;
+package com.goodengineer.atibackend.transformation;
 
 import java.util.LinkedList;
+
+import com.goodengineer.atibackend.ImageSource;
 
 public class CompoundImageTransformation implements ImageTransformation {
 
@@ -14,7 +16,7 @@ public class CompoundImageTransformation implements ImageTransformation {
 	public void transform(ImageSource imageSource) {
 		for (ImageTransformation imageTransformation : transformations) {
 			imageTransformation.transform(imageSource);
-//			imageSource.normalize();
+			imageSource.normalize();
 		}
 	}
 
