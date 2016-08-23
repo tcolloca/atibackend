@@ -9,6 +9,7 @@ public class ImageUtils {
 				croppedImage.setPixel(x, y, image.getPixel(x, y));
 			}
 		}
+		croppedImage.normalize();
 		return croppedImage;
 	}
 	
@@ -18,5 +19,14 @@ public class ImageUtils {
 				to.setPixel(x, y, from.getPixel(x, y));
 			}
 		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param imageSource needs to have pixels between 0 and 255 (at least for this method)
+	 */
+	public static void normalize(ImageSource imageSource) {
+//		TODO: implement normalization
 	}
 }

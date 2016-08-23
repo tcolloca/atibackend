@@ -14,6 +14,7 @@ public class CompoundImageTransformation implements ImageTransformation {
 	public void transform(ImageSource imageSource) {
 		for (ImageTransformation imageTransformation : transformations) {
 			imageTransformation.transform(imageSource);
+//			imageSource.normalize();
 		}
 	}
 
