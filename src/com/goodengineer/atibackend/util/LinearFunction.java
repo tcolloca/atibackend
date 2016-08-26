@@ -1,13 +1,13 @@
 package com.goodengineer.atibackend.util;
 
-public class LinearFunction implements Function {
+public class LinearFunction implements Function<Double, Double> {
 
-	private int x1;
-	private int y1;
-	private int x2;
-	private int y2;
+	private double x1;
+	private double y1;
+	private double x2;
+	private double y2;
 
-	public LinearFunction(int x1, int y1, int x2, int y2) {
+	public LinearFunction(double x1, double y1, double x2, double y2) {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
@@ -15,9 +15,9 @@ public class LinearFunction implements Function {
 	}
 
 	@Override
-	public int apply(int x) {
-		double m = (y2 - y1) / ((double) x2 - x1);
+	public Double apply(Double input) {
+		double m = (y2 - y1) / (x2 - x1);
 		double b = y1 - m * x1;
-		return (int) (m * x + b);
+		return m * input + b;
 	}
 }
