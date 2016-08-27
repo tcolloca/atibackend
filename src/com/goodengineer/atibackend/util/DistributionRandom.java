@@ -6,6 +6,10 @@ public class DistributionRandom {
 
     private static Random random = new Random();
 
+    public static double nextUniform(double min, double max) {
+        return random.nextDouble()*(max - min) + min;
+    }
+
     public static double nextGaussian(double mu, double sigma) {
         return random.nextGaussian()*sigma + mu;
     }
