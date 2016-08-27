@@ -80,6 +80,13 @@ public class Band {
 		setRawPixel(x, y, color);
 	}
 
+	public double map(int color) {
+		if (hasInvalidValues()) {
+			return normalToRaw.apply((double) color);
+		}
+		return (double) color;
+	}
+
 	public double getMin() {
 		return min;
 	}
@@ -122,10 +129,6 @@ public class Band {
 
 		rawToNormal = new LinearFunction(min, 0, max, 255);
 		normalToRaw = new LinearFunction(0, min, 255, max);
-	}
-
-	public LinearFunction getNormalToRaw() {
-		return normalToRaw;
 	}
 
 	private boolean hasInvalidValues() {
