@@ -5,14 +5,8 @@ import java.util.TreeSet;
 
 public class FilterApplier {
 
-    private static double squareAverageFilter(double[][] matrix) {
-        if (matrix.length != matrix[0].length) {
-            throw new IllegalArgumentException("Matrix is not square.");
-        }
+    public static double squareAverageFilter(double[][] matrix) {
         int size = matrix.length;
-        if (size % 2 == 0) {
-            throw new IllegalArgumentException("Matrix is even sized.");
-        }
         double count = 0;
         for (double[] row : matrix) {
             for (double cell : row) {
@@ -22,14 +16,8 @@ public class FilterApplier {
         return count / size*size;
     }
 
-    private static double squareGaussianFilter(double[][] matrix, double sigma) {
-        if (matrix.length != matrix[0].length) {
-            throw new IllegalArgumentException("Matrix is not square.");
-        }
+    public static double squareGaussianFilter(double[][] matrix, double sigma) {
         int size = matrix.length;
-        if (size % 2 == 0) {
-            throw new IllegalArgumentException("Matrix is even sized.");
-        }
         double count = 0;
         double gaussCount = 0;
         for (int x = 0; x < size; x++) {
@@ -43,14 +31,8 @@ public class FilterApplier {
         return count / gaussCount;
     }
 
-    private static double squareMedianFilter(double[][] matrix) {
-        if (matrix.length != matrix[0].length) {
-            throw new IllegalArgumentException("Matrix is not square.");
-        }
+    public static double squareMedianFilter(double[][] matrix) {
         int size = matrix.length;
-        if (size % 2 == 0) {
-            throw new IllegalArgumentException("Matrix is even sized.");
-        }
         Set<Double> medianSet = new TreeSet<>();
         for (double[] row : matrix) {
             for (double cell : row) {
