@@ -48,4 +48,19 @@ public class FilterApplier {
         }
         throw new IllegalStateException();
     }
+
+    public static double squareHiPassFilter(double[][] matrix) {
+        int size = matrix.length;
+        double count = 0;
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if (x == (size - 1) / 2 || y == (size - 1) / 2) {
+                    count += matrix[x][y] * (size * size - 1);
+                } else {
+                    count += matrix[x][y] * - 1;
+                }
+            }
+        }
+        return count;
+    }
 }
