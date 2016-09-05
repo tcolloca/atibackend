@@ -56,14 +56,14 @@ public class ImageUtils {
 	 *            needs to have pixels between 0 and 255 (at least for this
 	 *            method)
 	 */
-	public static float[] createHistogram(BlackAndWhiteImage image) {
+	public static float[] createHistogram(Band band) {
 		float[] histogram = new float[256];
-		for (int x = 0; x < image.getWidth(); x++) {
-			for (int y = 0; y < image.getHeight(); y++) {
-				histogram[image.getPixel(x, y)]++;
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				histogram[band.getPixel(x, y)]++;
 			}
 		}
-		int totalPixels = image.getWidth() * image.getHeight();
+		int totalPixels = band.getWidth() * band.getHeight();
 		for (int i = 0; i < histogram.length; i++) {
 			histogram[i] = histogram[i] / totalPixels;
 		}

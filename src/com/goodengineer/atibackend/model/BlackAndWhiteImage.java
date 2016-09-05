@@ -28,4 +28,8 @@ public class BlackAndWhiteImage implements Image {
 	public int getHeight() {
 		return grays.getHeight();
 	}
+	
+	public Band getBand() {
+		return grays;
+	}
 }
