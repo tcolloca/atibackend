@@ -26,6 +26,17 @@ public class Band {
 		return pixels[0].length;
 	}
 
+	public void normalize() {
+		if (!hasInvalidValues())
+			return;
+		for (int x = 0; x < pixels.length; x++) {
+			for (int y = 0; y < pixels[0].length; y++) {
+				pixels[x][y] = rawToNormal.apply(pixels[x][y]);
+			}
+		}
+		findMinAndMax();
+	}
+
 	public double getRawPixel(int x, int y) {
 		return pixels[x][y];
 	}
@@ -36,31 +47,31 @@ public class Band {
 			return;
 		}
 		if (oldColor == max) {
-			maxCount--;			
+			maxCount--;
 		}
 		if (oldColor == min) {
-			minCount--;			
+			minCount--;
 		}
 		pixels[x][y] = newColor;
-		
+
 		if (minCount == 0 || maxCount == 0) {
 			findMinAndMax();
 			return;
 		}
-		
+
 		if (newColor > max) {
 			max = newColor;
 			maxCount = 1;
-		}
-		if (newColor == max) {
+			updateTranslationFunctions();
+		} else if (newColor == max) {
 			maxCount++;
 		}
 
 		if (newColor < min) {
 			min = newColor;
 			minCount = 1;
-		}
-		if (newColor == min) {
+			updateTranslationFunctions();
+		} else if (newColor == min) {
 			minCount++;
 		}
 	}
@@ -127,6 +138,10 @@ public class Band {
 			}
 		}
 
+		updateTranslationFunctions();
+	}
+
+	private void updateTranslationFunctions() {
 		rawToNormal = new LinearFunction(min, 0, max, 255);
 		normalToRaw = new LinearFunction(0, min, 255, max);
 	}

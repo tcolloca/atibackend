@@ -1,17 +1,19 @@
 package com.goodengineer.atibackend;
 
+import com.goodengineer.atibackend.model.Band;
+import com.goodengineer.atibackend.model.BlackAndWhiteImage;
+
 public class ImageUtils {
 
-	public static ImageSource crop(ImageSource image, int startX, int startY, int width, int height,
+	public static BlackAndWhiteImage crop(BlackAndWhiteImage image, int startX, int startY, int width, int height,
 			ImageFactory imageFactory) {
-		ImageSource croppedImage = imageFactory.createEmpty(width, height);
+		Band band = new Band(new double[width][height]);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				croppedImage.setPixel(x, y, image.getPixel(startX + x, startY + y));
+				band.setPixel(x, y, image.getPixel(startX + x, startY + y));
 			}
 		}
-		croppedImage.normalize();
-		return croppedImage;
+		return new BlackAndWhiteImage(band);
 	}
 
 	public static void copy(ImageSource from, ImageSource to) {
@@ -54,14 +56,14 @@ public class ImageUtils {
 	 *            needs to have pixels between 0 and 255 (at least for this
 	 *            method)
 	 */
-	public static float[] createHistogram(ImageSource imageSource) {
+	public static float[] createHistogram(Band band) {
 		float[] histogram = new float[256];
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				histogram[imageSource.getPixel(x, y)]++;
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				histogram[band.getPixel(x, y)]++;
 			}
 		}
-		int totalPixels = imageSource.getWidth() * imageSource.getHeight();
+		int totalPixels = band.getWidth() * band.getHeight();
 		for (int i = 0; i < histogram.length; i++) {
 			histogram[i] = histogram[i] / totalPixels;
 		}
