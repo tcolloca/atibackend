@@ -1,8 +1,8 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
-public class ThresholdingTransformation implements ImageTransformation {
+public class ThresholdingTransformation implements Transformation {
 
 	private int thresholdColor;
 
@@ -11,12 +11,14 @@ public class ThresholdingTransformation implements ImageTransformation {
 	}
 
 	@Override
-	public void transform(ImageSource imageSource) {
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				int currentColor = imageSource.getPixel(x, y);
-				int newColor = currentColor >= thresholdColor ? 255 : 0;
-				imageSource.setPixel(x, y, newColor);
+	public void transform(Band band) {
+		double rawThresholdColor = band.map(thresholdColor);
+
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				double currentColor = band.getRawPixel(x, y);
+				double newColor = currentColor >= rawThresholdColor ? band.getValidMax() : band.getValidMin();
+				band.setRawPixel(x, y, newColor);
 			}
 		}
 	}

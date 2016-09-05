@@ -1,26 +1,21 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
 /**
  * I really doubt this transformation is well implemented.
- * Ask Juliana if the result looks ok.
+ * TODO: Ask Juliana if the result looks ok.
  */
-public class DynamicRangeCompressionTransformation implements ImageTransformation {
+public class DynamicRangeCompressionTransformation implements Transformation {
 
 	@Override
-	public void transform(ImageSource imageSource) {
-		int max = imageSource.getPixel(0, 0);
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				max = Math.max(max, imageSource.getPixel(x, y));
-			}
-		}
+	public void transform(Band band) {
+		double max = band.getMax();
 		double c = 255.0/Math.log10(1 + max);
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				int newColor = (int) (c*Math.log10(1 + imageSource.getPixel(x, y)));
-				imageSource.setPixel(x, y, newColor);
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				int newColor = (int) Math.round((c*Math.log10(1 + band.getRawPixel(x, y) - band.getValidMin())));
+				band.setRawPixel(x, y, newColor);
 			}
 		}
 	}

@@ -1,9 +1,9 @@
-package com.goodengineer.atibackend.transformation2.filter;
+package com.goodengineer.atibackend.transformation.filter;
 
 import java.util.Arrays;
 
 import com.goodengineer.atibackend.model.Band;
-import com.goodengineer.atibackend.transformation2.Transformation;
+import com.goodengineer.atibackend.transformation.Transformation;
 
 public class MedianFilterTransformation implements Transformation {
 

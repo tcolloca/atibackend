@@ -1,8 +1,8 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
-public class PaintPixelTransformation implements ImageTransformation {
+public class PaintPixelTransformation implements Transformation {
 
 	private int x;
 	private int y;
@@ -15,7 +15,7 @@ public class PaintPixelTransformation implements ImageTransformation {
 	}
 
 	@Override
-	public void transform(ImageSource imageSource) {
-		imageSource.setPixel(x, y, color);
+	public void transform(Band band) {
+		band.setPixel(x, y, color);
 	}
 }

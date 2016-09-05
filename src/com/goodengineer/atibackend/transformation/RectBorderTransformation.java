@@ -1,8 +1,8 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
-public class RectBorderTransformation implements ImageTransformation {
+public class RectBorderTransformation implements Transformation {
 
 	private int left;
 	private int top;
@@ -18,20 +18,18 @@ public class RectBorderTransformation implements ImageTransformation {
 		this.color = color;
 	}
 
-
-
 	/**
 	 * Draws an empty rectangle in the specified position
 	 */
 	@Override
-	public void transform(ImageSource imageSource) {
+	public void transform(Band band) {
 		for (int x = left; x <= right; x++) {
-			imageSource.setPixel(x, top, color);
-			imageSource.setPixel(x, bottom, color);
+			band.setPixel(x, top, color);
+			band.setPixel(x, bottom, color);
 		}
 		for (int y = top; y <= bottom; y++) {
-			imageSource.setPixel(left, y, color);
-			imageSource.setPixel(right, y, color);
+			band.setPixel(left, y, color);
+			band.setPixel(right, y, color);
 		}
 	}
 }

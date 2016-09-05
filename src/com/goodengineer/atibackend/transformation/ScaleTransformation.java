@@ -1,8 +1,8 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
-public class ScaleTransformation implements ImageTransformation {
+public class ScaleTransformation implements Transformation {
 
 	private int scalar;
 	
@@ -11,10 +11,10 @@ public class ScaleTransformation implements ImageTransformation {
 	}
 	
 	@Override
-	public void transform(ImageSource imageSource) {
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				imageSource.setPixel(x, y, imageSource.getPixel(x, y) * scalar);
+	public void transform(Band band) {
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				band.setRawPixel(x, y, band.getRawPixel(x, y) * scalar);
 			}
 		}
 	}

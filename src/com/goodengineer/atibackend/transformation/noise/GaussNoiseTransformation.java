@@ -1,7 +1,7 @@
-package com.goodengineer.atibackend.transformation2.noise;
+package com.goodengineer.atibackend.transformation.noise;
 
 import com.goodengineer.atibackend.model.Band;
-import com.goodengineer.atibackend.transformation2.Transformation;
+import com.goodengineer.atibackend.transformation.Transformation;
 import com.goodengineer.atibackend.util.DistributionRandom;
 
 public class GaussNoiseTransformation implements Transformation {

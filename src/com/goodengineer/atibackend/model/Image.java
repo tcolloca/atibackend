@@ -1,6 +1,6 @@
 package com.goodengineer.atibackend.model;
 
-import com.goodengineer.atibackend.transformation2.Transformation;
+import com.goodengineer.atibackend.transformation.Transformation;
 
 public interface Image {
 	int getWidth();

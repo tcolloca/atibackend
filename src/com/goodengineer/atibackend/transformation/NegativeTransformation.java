@@ -1,14 +1,15 @@
 package com.goodengineer.atibackend.transformation;
 
-import com.goodengineer.atibackend.ImageSource;
+import com.goodengineer.atibackend.model.Band;
 
-public class NegativeTransformation implements ImageTransformation {
+public class NegativeTransformation implements Transformation {
 
 	@Override
-	public void transform(ImageSource imageSource) {
-		for (int x = 0; x < imageSource.getWidth(); x++) {
-			for (int y = 0; y < imageSource.getHeight(); y++) {
-				imageSource.setPixel(x, y, 255 - imageSource.getPixel(x, y));
+	public void transform(Band band) {
+
+		for (int x = 0; x < band.getWidth(); x++) {
+			for (int y = 0; y < band.getHeight(); y++) {
+				band.setRawPixel(x, y, band.getValidMax() + band.getValidMin() - band.getRawPixel(x, y));
 			}
 		}
 	}

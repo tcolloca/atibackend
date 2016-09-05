@@ -1,17 +1,17 @@
-package com.goodengineer.atibackend.transformation2.noise;
+package com.goodengineer.atibackend.transformation.noise;
 
 import com.goodengineer.atibackend.model.Band;
-import com.goodengineer.atibackend.transformation2.Transformation;
+import com.goodengineer.atibackend.transformation.Transformation;
 import com.goodengineer.atibackend.util.DistributionRandom;
 
-public class ExponentialNoiseTransformation implements Transformation {
+public class RayleighNoiseTransformation implements Transformation {
 
     private final double percentage;
-    private final double lambda;
+    private final double epsilon;
 
-    public ExponentialNoiseTransformation(double percentage, double lambda) {
+    public RayleighNoiseTransformation(double percentage, double epsilon) {
         this.percentage = percentage;
-        this.lambda = lambda;
+        this.epsilon = epsilon;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class ExponentialNoiseTransformation implements Transformation {
         for (int x = 0; x < band.getWidth(); x++) {
             for (int y = 0; y < band.getHeight(); y++) {
                 if (DistributionRandom.nextUniform(0, 100) <= percentage) {
-                    band.setRawPixel(x, y, band.getRawPixel(x, y) * DistributionRandom.nextExponential(lambda));
+                    band.setRawPixel(x, y, band.getRawPixel(x, y) * DistributionRandom.nextRayleigh(epsilon));
                 }
             }
         }
