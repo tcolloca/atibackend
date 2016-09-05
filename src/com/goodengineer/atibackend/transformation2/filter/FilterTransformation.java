@@ -3,12 +3,12 @@ package com.goodengineer.atibackend.transformation2.filter;
 import com.goodengineer.atibackend.model.Band;
 import com.goodengineer.atibackend.transformation2.Transformation;
 
-abstract class FilterTransformation implements Transformation {
+public class FilterTransformation implements Transformation {
 
-	final double[][] mask;
-	final int size;
+	private final double[][] mask;
+	private final int size;
 
-	FilterTransformation(double[][] mask) {
+	public FilterTransformation(double[][] mask) {
 		if (mask.length % 2 == 0) {
 			throw new IllegalArgumentException("Filter must be odd sized.");
 		}
@@ -18,11 +18,13 @@ abstract class FilterTransformation implements Transformation {
 
 	@Override
 	public void transform(Band band) {
+		double[][] newPixels = new double[band.getWidth()][band.getHeight()];
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
-				band.setRawPixel(x, y, applyMask(band, x, y));
+				newPixels[x][y] = applyMask(band, x, y);
 			}
 		}
+		band.setPixels(newPixels);
 	}
 
 	private double applyMask(Band band, int x, int y) {

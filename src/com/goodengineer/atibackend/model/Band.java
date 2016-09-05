@@ -25,6 +25,11 @@ public class Band {
 	public int getHeight() {
 		return pixels[0].length;
 	}
+	
+	public void setPixels(double[][] pixels) {
+		this.pixels = pixels;
+		findMinAndMax();
+	}
 
 	public void normalize() {
 		if (!hasInvalidValues())
