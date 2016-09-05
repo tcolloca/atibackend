@@ -51,16 +51,16 @@ public class Band {
 		if (newColor > max) {
 			max = newColor;
 			maxCount = 1;
-		}
-		if (newColor == max) {
+			updateTranslationFunctions();
+		} else if (newColor == max) {
 			maxCount++;
 		}
 
 		if (newColor < min) {
 			min = newColor;
 			minCount = 1;
-		}
-		if (newColor == min) {
+			updateTranslationFunctions();
+		} else if (newColor == min) {
 			minCount++;
 		}
 	}
@@ -127,6 +127,10 @@ public class Band {
 			}
 		}
 
+		updateTranslationFunctions();
+	}
+	
+	private void updateTranslationFunctions() {
 		rawToNormal = new LinearFunction(min, 0, max, 255);
 		normalToRaw = new LinearFunction(0, min, 255, max);
 	}
