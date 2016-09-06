@@ -34,4 +34,8 @@ public class CompoundTransformation implements Transformation {
 	public void clearTransformations() {
 		transformations.clear();
 	}
+	
+	public boolean isEmpty() {
+		return transformations.isEmpty();
+	}
 }
