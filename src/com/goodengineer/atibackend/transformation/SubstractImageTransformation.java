@@ -6,7 +6,7 @@ public class SubstractImageTransformation implements Transformation {
 
     private Band srcBand;
 
-    SubstractImageTransformation(Band srcBand) {
+    public SubstractImageTransformation(Band srcBand) {
         this.srcBand = srcBand;
     }
 
@@ -17,7 +17,7 @@ public class SubstractImageTransformation implements Transformation {
         }
         for (int x = 0; x < destBand.getWidth(); x++) {
             for (int y = 0; y < destBand.getHeight(); y++) {
-                destBand.setRawPixel(x, y, srcBand.getRawPixel(x, y) - destBand.getRawPixel(x, y));
+                destBand.setRawPixel(x, y, destBand.getRawPixel(x, y) - srcBand.getRawPixel(x, y));
             }
         }
     }

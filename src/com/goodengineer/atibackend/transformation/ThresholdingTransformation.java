@@ -13,11 +13,13 @@ public class ThresholdingTransformation implements Transformation {
 	@Override
 	public void transform(Band band) {
 		double rawThresholdColor = band.map(thresholdColor);
+		double max = band.getValidMax();
+		double min = band.getValidMin();
 
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
 				double currentColor = band.getRawPixel(x, y);
-				double newColor = currentColor >= rawThresholdColor ? band.getValidMax() : band.getValidMin();
+				double newColor = currentColor >= rawThresholdColor ? max : min;
 				band.setRawPixel(x, y, newColor);
 			}
 		}

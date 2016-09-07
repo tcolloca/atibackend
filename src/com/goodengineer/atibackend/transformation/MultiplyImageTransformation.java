@@ -6,7 +6,7 @@ public class MultiplyImageTransformation implements Transformation {
 
     private Band srcBand;
 
-    MultiplyImageTransformation(Band srcBand) {
+    public MultiplyImageTransformation(Band srcBand) {
         this.srcBand = srcBand;
     }
 

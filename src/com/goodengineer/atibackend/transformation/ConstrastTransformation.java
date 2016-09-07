@@ -23,8 +23,8 @@ public class ConstrastTransformation implements Transformation {
 		double rawR1 = band.map(r1);
 		double rawR2 = band.map(r2);
 
-		double s1 = (r1 + band.getValidMin()) / 2.0;
-		double s2 = (r2 + band.getValidMax()) / 2.0;
+		double s1 = (rawR1 + band.getValidMin()) / 2.0;
+		double s2 = (rawR2 + band.getValidMax()) / 2.0;
 
 		final Function<Double, Double> f1 = new LinearFunction(band.getValidMin(), band.getValidMin(), rawR1, s1);
 		final Function<Double, Double> f2 = new LinearFunction(rawR1, s1, rawR2, s2);
@@ -33,9 +33,9 @@ public class ConstrastTransformation implements Transformation {
 		Function<Double, Double> function = new Function<Double, Double>() {
 			@Override
 			public Double apply(Double x) {
-				if (x <= r1) {
+				if (x <= rawR1) {
 					return f1.apply(x);
-				} else if (x <= r2) {
+				} else if (x <= rawR2) {
 					return f2.apply(x);
 				}
 				return f3.apply(x);
