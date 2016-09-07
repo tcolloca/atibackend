@@ -11,10 +11,11 @@ public class DynamicRangeCompressionTransformation implements Transformation {
 	@Override
 	public void transform(Band band) {
 		double max = band.getMax();
+		double min = band.getValidMin();
 		double c = 255.0/Math.log10(1 + max);
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
-				int newColor = (int) Math.round((c*Math.log10(1 + band.getRawPixel(x, y) - band.getValidMin())));
+				int newColor = (int) Math.round((c*Math.log10(1 + band.getRawPixel(x, y) - min)));
 				band.setRawPixel(x, y, newColor);
 			}
 		}

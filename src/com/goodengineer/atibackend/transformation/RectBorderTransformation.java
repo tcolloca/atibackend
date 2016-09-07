@@ -18,6 +18,14 @@ public class RectBorderTransformation implements Transformation {
 		this.color = color;
 	}
 
+	public RectBorderTransformation(RectBorderTransformation rectBorderTransformation, int color) {
+		this.left = rectBorderTransformation.left;
+		this.top = rectBorderTransformation.top;
+		this.right = rectBorderTransformation.right;
+		this.bottom = rectBorderTransformation.bottom;
+		this.color = color;
+	}
+
 	/**
 	 * Draws an empty rectangle in the specified position
 	 */
@@ -31,5 +39,9 @@ public class RectBorderTransformation implements Transformation {
 			band.setPixel(left, y, color);
 			band.setPixel(right, y, color);
 		}
+	}
+
+	public int getColor() {
+		return color;
 	}
 }

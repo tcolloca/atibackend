@@ -6,7 +6,7 @@ public class SumImageTransformation implements Transformation {
 
     private Band srcBand;
 
-    SumImageTransformation(Band srcBand) {
+    public SumImageTransformation(Band srcBand) {
         this.srcBand = srcBand;
     }
 
