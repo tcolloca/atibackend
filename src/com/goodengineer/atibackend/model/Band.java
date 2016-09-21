@@ -17,6 +17,10 @@ public class Band {
 		this.pixels = pixels;
 		findMinAndMax();
 	}
+	
+	public Band clone() {
+		return new Band(pixels.clone());
+	}
 
 	public int getWidth() {
 		return pixels.length;
@@ -144,6 +148,14 @@ public class Band {
 		}
 
 		updateTranslationFunctions();
+	}
+	
+	public boolean isValidMin(double value) {
+		return Math.abs(value - getValidMin()) < 1e-4;
+	}
+	
+	public boolean isValidMax(double value) {
+		return Math.abs(value - getValidMax()) < 1e-4;
 	}
 
 	private void updateTranslationFunctions() {

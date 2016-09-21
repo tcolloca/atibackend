@@ -1,6 +1,7 @@
-package com.goodengineer.atibackend.transformation;
+package com.goodengineer.atibackend.transformation.threshold;
 
 import com.goodengineer.atibackend.model.Band;
+import com.goodengineer.atibackend.transformation.Transformation;
 
 public class ThresholdingTransformation implements Transformation {
 
