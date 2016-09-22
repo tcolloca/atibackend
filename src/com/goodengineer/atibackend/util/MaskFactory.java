@@ -119,6 +119,29 @@ public class MaskFactory {
 		}
 	}
 
+	public static double[][] isotropic(int size, double t) {
+		double[][] mask = new double[size][size];
+		double gaussCount = 0;
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				int xDist = (size - 1) / 2 - i;
+				int yDist = (size - 1) / 2 - j;
+				double exp = Math.exp(- (Math.pow(xDist, 2) + Math.pow(yDist, 2)) / (4 * t));
+				double gauss = (1 / (4 * Math.PI * t)) * exp;
+				gaussCount += gauss;
+				mask[i][j] = gauss;
+			}
+		}
+
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				mask[i][j] = mask[i][j] / gaussCount;
+			}
+		}
+
+		return mask;
+	}
+
 	// matrix needs to be a 3x3 matrix
 	private static void rotate(double[][] matrix) {
 		double aux = matrix[0][0];

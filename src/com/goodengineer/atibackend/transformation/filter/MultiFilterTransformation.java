@@ -11,7 +11,11 @@ public class MultiFilterTransformation implements Transformation {
 
 	private double[][][] masks;
 	private PixelRule pixelRule;
-	
+
+	public MultiFilterTransformation(PixelRule pixelRule, List<double[][]> masks) {
+		this(pixelRule, (double[][][]) masks.toArray());
+	}
+
 	public interface PixelRule {
 		double calculate(List<Double> values);
 	}
