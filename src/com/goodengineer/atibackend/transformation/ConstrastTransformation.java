@@ -20,8 +20,8 @@ public class ConstrastTransformation implements Transformation {
 
 	@Override
 	public void transform(Band band) {
-		double rawR1 = band.map(r1);
-		double rawR2 = band.map(r2);
+		final double rawR1 = band.map(r1);
+		final double rawR2 = band.map(r2);
 
 		double s1 = (rawR1 + band.getValidMin()) / 2.0;
 		double s2 = (rawR2 + band.getValidMax()) / 2.0;
