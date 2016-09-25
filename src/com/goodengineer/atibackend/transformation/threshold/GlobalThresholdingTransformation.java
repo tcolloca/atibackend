@@ -31,14 +31,15 @@ public class GlobalThresholdingTransformation implements Transformation {
 
 			m1 = m1 / blacks;
 			m2 = m2 / whites;
-			// TODO: puede ser arbitrariamente chica la diferencia??
-			if (Math.abs(m1 - m2) < 1.0) {
+			int newT = (int)((m1 + m2)/2.0);
+			if (Math.abs(T - newT) < 1) {
 				flag = true;
 			} else {
-				T = (int)((m1 + m2)/2.0);
+				T = newT;
 			}
 		}
 //		T es el mejor umbral
+		System.out.println(T);
 		new ThresholdingTransformation(T).transform(band);
 	}
 }

@@ -19,7 +19,13 @@ public class Band {
 	}
 	
 	public Band clone() {
-		return new Band(pixels.clone());
+		double[][] newPixels = new double[pixels.length][pixels[0].length];
+		for (int i = 0; i < pixels.length; i++) {
+			for (int j = 0; j < pixels[0].length; j++) {
+				newPixels[i][j] = pixels[i][j];
+			}
+		}
+		return new Band(newPixels);
 	}
 
 	public int getWidth() {
