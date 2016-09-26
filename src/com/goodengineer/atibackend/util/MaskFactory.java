@@ -53,7 +53,6 @@ public class MaskFactory {
 
 	public static double[][] LoG(int size, double sigma) {
 		double[][] mask = new double[size][size];
-		double count = 0;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				int x = (size - 1) / 2 - i;
@@ -62,7 +61,6 @@ public class MaskFactory {
 				double exp = Math.exp(-d / 2.0);
 				double c = -1.0 / (Math.sqrt(2 * Math.PI) * Math.pow(sigma, 3));
 				double logValue = c * (2 - d) * exp;
-				count += logValue;
 				mask[i][j] = logValue;
 			}
 		}
@@ -117,29 +115,6 @@ public class MaskFactory {
 		for (int i = 0; i < times; i++) {
 			rotate(matrix);
 		}
-	}
-
-	public static double[][] isotropic(int size, double t) {
-		double[][] mask = new double[size][size];
-		double gaussCount = 0;
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				int xDist = (size - 1) / 2 - i;
-				int yDist = (size - 1) / 2 - j;
-				double exp = Math.exp(- (Math.pow(xDist, 2) + Math.pow(yDist, 2)) / (4 * t));
-				double gauss = (1 / (4 * Math.PI * t)) * exp;
-				gaussCount += gauss;
-				mask[i][j] = gauss;
-			}
-		}
-
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				mask[i][j] = mask[i][j] / gaussCount;
-			}
-		}
-
-		return mask;
 	}
 
 	// matrix needs to be a 3x3 matrix

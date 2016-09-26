@@ -3,6 +3,17 @@ package com.goodengineer.atibackend.util;
 import com.goodengineer.atibackend.model.Band;
 
 public class FilterUtils {
+
+	public static double leclerc(double x, double sigma) {
+		double pow = -(x * x) / (sigma * sigma);
+		return Math.pow(Math.E, pow);
+	}
+
+	public static double lorentzian(double x, double sigma) {
+		double bottom = 1 + (x * x) / (sigma * sigma);
+		return 1.0 / bottom;
+	}
+
 	public static double applyMask(Band band, double[][] mask, int x, int y) {
 		double count = 0;
 		int size = mask.length;
@@ -14,12 +25,11 @@ public class FilterUtils {
 		return count;
 	}
 
-	
 	public static double getWithOffset(Band band, int x, int y, int i, int j, int size) {
-		int xOffset = - (size - 1) / 2 + j;
-		int yOffset = - (size - 1) / 2 + i;
+		int xOffset = -(size - 1) / 2 + j;
+		int yOffset = -(size - 1) / 2 + i;
 		int relativeX = x + xOffset;
-		int relativeY = y  + yOffset;
+		int relativeY = y + yOffset;
 		if (relativeX < 0 || relativeX >= band.getWidth() || relativeY < 0 || relativeY >= band.getHeight()) {
 			return band.getValidMin();
 		}
