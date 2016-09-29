@@ -2,8 +2,19 @@ package com.goodengineer.atibackend.transformation.threshold;
 
 import com.goodengineer.atibackend.model.Band;
 import com.goodengineer.atibackend.transformation.Transformation;
+import jdk.nashorn.internal.objects.Global;
 
 public class GlobalThresholdingTransformation implements Transformation {
+
+	private final int dt;
+
+	public GlobalThresholdingTransformation() {
+		this.dt = 1;
+	}
+
+	public GlobalThresholdingTransformation(int dt) {
+		this.dt = dt;
+	}
 
 	@Override
 	public void transform(Band band) {
@@ -32,14 +43,13 @@ public class GlobalThresholdingTransformation implements Transformation {
 			m1 = m1 / blacks;
 			m2 = m2 / whites;
 			int newT = (int)((m1 + m2)/2.0);
-			if (Math.abs(T - newT) < 1) {
+			if (Math.abs(T - newT) < dt) {
 				flag = true;
 			} else {
 				T = newT;
 			}
 		}
-//		T es el mejor umbral
-		System.out.println(T);
+		System.out.println(String.format("Band: %s, Threshold: %d", band.getName(), T));
 		new ThresholdingTransformation(T).transform(band);
 	}
 }

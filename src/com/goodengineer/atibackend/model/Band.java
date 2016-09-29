@@ -2,6 +2,8 @@ package com.goodengineer.atibackend.model;
 
 import com.goodengineer.atibackend.util.LinearFunction;
 
+import java.util.Optional;
+
 public class Band {
 	private double[][] pixels;
 
@@ -9,12 +11,18 @@ public class Band {
 	private double max;
 	private int minCount;
 	private int maxCount;
+	private String name;
 
 	private LinearFunction rawToNormal;
 	private LinearFunction normalToRaw;
 
 	public Band(double[][] pixels) {
+		this(pixels, null);
+	}
+
+	public Band(double[][] pixels, String name) {
 		this.pixels = pixels;
+		this.name = name;
 		findMinAndMax();
 	}
 	
@@ -25,7 +33,7 @@ public class Band {
 				newPixels[i][j] = pixels[i][j];
 			}
 		}
-		return new Band(newPixels);
+		return new Band(newPixels, name);
 	}
 
 	public int getWidth() {
@@ -171,5 +179,9 @@ public class Band {
 
 	private boolean hasInvalidValues() {
 		return min < 0 || max > 255;
+	}
+
+	public String getName() {
+		return name == null ? "gray" : name;
 	}
 }

@@ -40,7 +40,7 @@ public class OtsuThresholdingTransformation implements Transformation {
 			tAcum += t;
 		}
 		tAcum /= maxTs.size();
-		System.out.println(tAcum);
+		System.out.println(String.format("Band: %s, Threshold: %d", band.getName(), tAcum));
 		new ThresholdingTransformation(tAcum).transform(band);
 	}
 }
