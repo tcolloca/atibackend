@@ -34,6 +34,14 @@ public class ColorImage implements Image {
 	}
 
 	@Override
+	public Image clone() {
+		Band red = this.red.clone();
+		Band green = this.green.clone();
+		Band blue = this.blue.clone();
+		return new ColorImage(red, green, blue);
+	}
+
+	@Override
 	public int getWidth() {
 		return blue.getWidth();
 	}

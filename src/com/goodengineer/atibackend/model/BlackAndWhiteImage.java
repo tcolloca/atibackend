@@ -32,4 +32,10 @@ public class BlackAndWhiteImage implements Image {
 	public Band getBand() {
 		return grays;
 	}
+
+	@Override
+	public Image clone() {
+		Band red = this.grays.clone();
+		return new BlackAndWhiteImage(grays);
+	}
 }

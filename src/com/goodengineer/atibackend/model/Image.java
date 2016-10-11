@@ -8,4 +8,6 @@ public interface Image {
 	int getHeight();
 
 	void transform(Transformation transformation);
+
+	Image clone();
 }

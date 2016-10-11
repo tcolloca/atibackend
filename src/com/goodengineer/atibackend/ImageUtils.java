@@ -25,7 +25,7 @@ public class ImageUtils {
 		Band newBand = new Band(new double[width][height]);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				newBand.setPixel(x, y, band.getPixel(startX + x, startY + y));
+				newBand.setRawPixel(x, y, band.getRawPixel(startX + x, startY + y));
 			}
 		}
 		return newBand;

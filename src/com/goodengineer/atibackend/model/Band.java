@@ -1,20 +1,19 @@
 package com.goodengineer.atibackend.model;
 
+import com.goodengineer.atibackend.util.Function;
 import com.goodengineer.atibackend.util.LinearFunction;
 
-import java.util.Optional;
-
 public class Band {
-	private double[][] pixels;
+	protected double[][] pixels;
 
-	private double min;
-	private double max;
+	protected double min;
+	protected double max;
 	private int minCount;
 	private int maxCount;
-	private String name;
+	protected String name;
 
-	private LinearFunction rawToNormal;
-	private LinearFunction normalToRaw;
+	protected Function<Double, Double> rawToNormal;
+	protected Function<Double, Double> normalToRaw;
 
 	public Band(double[][] pixels) {
 		this(pixels, null);
@@ -172,7 +171,7 @@ public class Band {
 		return Math.abs(value - getValidMax()) < 1e-4;
 	}
 
-	private void updateTranslationFunctions() {
+	protected void updateTranslationFunctions() {
 		rawToNormal = new LinearFunction(min, 0, max, 255);
 		normalToRaw = new LinearFunction(0, min, 255, max);
 	}
