@@ -1,5 +1,8 @@
 ### Eclipse ###
 
+ati-backend.iml
+.idea/*
+
 .metadata
 bin/
 tmp/
