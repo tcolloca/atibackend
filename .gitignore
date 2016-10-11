@@ -2,6 +2,7 @@
 
 ati-backend.iml
 .idea/*
+/.idea/*
 
 .metadata
 bin/

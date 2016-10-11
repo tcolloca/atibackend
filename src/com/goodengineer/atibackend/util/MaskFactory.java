@@ -18,10 +18,14 @@ public class MaskFactory {
 	}
 
 	public static double[][] average(int size) {
-		double[][] mask = new double[size][size];
-		double value = 1.0 / (size * size);
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		return average(size, size);
+	}
+
+	public static double[][] average(int width, int height) {
+		double[][] mask = new double[width][height];
+		double value = 1.0 / (width * height);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				mask[i][j] = value;
 			}
 		}
