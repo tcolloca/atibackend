@@ -4,7 +4,7 @@ import com.goodengineer.atibackend.util.Function;
 import com.goodengineer.atibackend.util.LinearFunction;
 
 public class Band {
-	protected double[][] pixels;
+	public double[][] pixels;
 
 	protected double min;
 	protected double max;

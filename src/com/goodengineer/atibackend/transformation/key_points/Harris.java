@@ -28,7 +28,7 @@ public class Harris {
 		Transformation IyTransformation = new MultiFilterTransformation(new MaxPixelRule(),
 				MaskFactory.sobel(Direction.S));
 		Band Iy = band.clone();
-		IxTransformation.transform(Iy);
+		IyTransformation.transform(Iy);
 
 		Band Ixy = Ix.clone();
 		Transformation multiplyTransformation = new MultiplyImageTransformation(Iy);
@@ -41,7 +41,7 @@ public class Harris {
 		squareTransformation.transform(Ix2);
 		squareTransformation.transform(Iy2);
 
-		PriorityQueue<PixelNode> heap = new PriorityQueue<>(10, Collections.reverseOrder());
+		PriorityQueue<PixelNode> heap = new PriorityQueue<>(10);
 		
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {

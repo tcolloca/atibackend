@@ -35,12 +35,18 @@ public class MaskFactory {
 	public static double[][] gauss(int size, double sigma) {
 		double[][] mask = new double[size][size];
 		double gaussCount = 0;
+		double corner = 1;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				int xDist = (size - 1) / 2 - i;
-				int yDist = (size - 1) / 2 - j;
-				double exp = Math.exp((Math.pow(xDist, 2) + Math.pow(yDist, 2)) / (-2 * Math.pow(sigma, 2)));
-				double gauss = 1 / (2 * Math.PI * Math.pow(sigma, 2)) * exp;
+				int xDist = (size - 1) / 2 - j;
+				int yDist = (size - 1) / 2 - i;
+				double exp = Math.exp((Math.pow(xDist, 2) + Math.pow(yDist, 2)) / (- 2 * Math.pow(sigma, 2)));
+				double gauss = 1 / (2 * Math.PI * Math.pow(sigma, 2)) * exp / corner;
+				if (i == 0 && j == 0) {
+					corner = gauss * 0.5;
+					gauss = gauss / corner;
+				}
+				gauss = Math.round(gauss);
 				gaussCount += gauss;
 				mask[i][j] = gauss;
 			}
@@ -135,7 +141,7 @@ public class MaskFactory {
 	}
 	
 	public static void main(String[] args) {
-		print(LoG(7, 1));
+		print(gauss(5, 2));
 	}
 
 	private static void print(double[][] matrix) {
