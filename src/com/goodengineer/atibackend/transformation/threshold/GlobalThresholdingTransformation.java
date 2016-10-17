@@ -2,7 +2,6 @@ package com.goodengineer.atibackend.transformation.threshold;
 
 import com.goodengineer.atibackend.model.Band;
 import com.goodengineer.atibackend.transformation.Transformation;
-import jdk.nashorn.internal.objects.Global;
 
 public class GlobalThresholdingTransformation implements Transformation {
 
