@@ -30,8 +30,15 @@ public class FilterUtils {
 		int yOffset = -(size - 1) / 2 + i;
 		int relativeX = x + xOffset;
 		int relativeY = y + yOffset;
-		if (relativeX < 0 || relativeX >= band.getWidth() || relativeY < 0 || relativeY >= band.getHeight()) {
-			return band.getValidMin();
+		if (relativeX < 0) {
+			relativeX = 0;
+		} else if (relativeX >= band.getWidth()) {
+			relativeX = band.getWidth() - 1;
+		}
+		if (relativeY < 0) {
+			relativeY = 0;
+		} else if (relativeY >= band.getHeight()) {
+			relativeY = band.getHeight()  - 1;
 		}
 		return band.getPixel(relativeX, relativeY);
 	}
