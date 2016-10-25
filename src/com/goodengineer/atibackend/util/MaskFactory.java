@@ -120,6 +120,18 @@ public class MaskFactory {
 		return new double[][] { { 0, -1, 0 }, { -1, 4, -1 }, { 0, -1, 0 } };
 	}
 
+	public static double[][] susan() {
+		return new double[][] {
+				{0, 0, 1, 1, 1, 0, 0},
+				{0, 1, 1, 1, 1, 1, 0},
+				{1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1},
+				{0, 1, 1, 1, 1, 1, 0},
+				{0, 0, 1, 1, 1, 0, 0}
+		};
+	}
+
 	// matrix needs to be a 3x3 matrix
 	private static void rotate(double[][] matrix, int times) {
 		for (int i = 0; i < times; i++) {

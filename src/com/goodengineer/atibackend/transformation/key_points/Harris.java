@@ -1,33 +1,29 @@
 package com.goodengineer.atibackend.transformation.key_points;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
-
 import com.goodengineer.atibackend.model.Band;
-import com.goodengineer.atibackend.transformation.MultiplyImageTransformation;
 import com.goodengineer.atibackend.transformation.SquareTransformation;
 import com.goodengineer.atibackend.transformation.Transformation;
 import com.goodengineer.atibackend.transformation.filter.FilterAndZeroCrossTransformation;
 import com.goodengineer.atibackend.transformation.filter.FilterTransformation;
 import com.goodengineer.atibackend.transformation.filter.MultiFilterTransformation;
-import com.goodengineer.atibackend.transformation.filter.ZeroCrossTransformation;
-import com.goodengineer.atibackend.transformation.filter.pixelRules.MaxPixelRule;
 import com.goodengineer.atibackend.transformation.filter.pixelRules.NormPixelRule;
 import com.goodengineer.atibackend.util.MaskFactory;
-import com.goodengineer.atibackend.util.MaskFactory.Direction;
 import com.goodengineer.atibackend.util.Point;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Harris {
 
 	private static final double HARRIS_K = 0.04;
 
-	public static List<Point> findKeyPoints(Band inputBand, int keyPointsAmount) {
+	public static List<Point> findKeyPoints(Band inputBand, double percentage) {
 		Band band = inputBand.clone();
 
-		Transformation LoGTransformation = new FilterAndZeroCrossTransformation(0, MaskFactory.LoG(7, 1));
-		LoGTransformation.transform(band);
+		Transformation diffuseTransformation = new FilterAndZeroCrossTransformation(0, MaskFactory.LoG(7, 1));
+		diffuseTransformation.transform(band);
+
+//		Transformation diffuseTransformation = new FilterTransformation(MaskFactory.gauss(7, 2));
 
 		Transformation IxTransformation = new MultiFilterTransformation(new NormPixelRule(),
 				MaskFactory.sobel(MaskFactory.Direction.E));
@@ -79,7 +75,7 @@ public class Harris {
 		List<Point> keyPoints = new ArrayList<>();
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
-				if (maxima.getRawPixel(x, y) > maxima.getMax() * 0.5) {
+				if (maxima.getRawPixel(x, y) > maxima.getMax() * percentage / 100) {
 					keyPoints.add(new Point(x, y));
 				}
 			}
