@@ -18,6 +18,9 @@ public class KeypointsUtils {
       case "B":
         color = rgb[2];
         break;
+      case "Gray":
+        color = (rgb[0] + rgb[1] + rgb[2]) / 3;
+        break;
       default:
         throw new IllegalStateException();
     }

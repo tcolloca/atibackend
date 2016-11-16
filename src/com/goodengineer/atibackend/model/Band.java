@@ -100,7 +100,8 @@ public class Band {
 
 	public int getPixel(int x, int y) {
 		if (hasInvalidValues()) {
-			return (int) Math.round(rawToNormal.apply(getRawPixel(x, y)));
+			double pixel = getRawPixel(x, y);
+			return (int) Math.round(rawToNormal.apply(pixel));
 		}
 		return (int) Math.round(getRawPixel(x, y));
 	}

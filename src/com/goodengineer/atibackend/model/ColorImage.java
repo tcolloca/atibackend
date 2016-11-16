@@ -69,5 +69,8 @@ public class ColorImage implements Image {
 
 	public double[] getColor(int x, int y) {
 		return new double[]{getRed(x, y), getGreen(x, y), getBlue(x, y)};
+}
+	public int getGray(int x, int y) {
+		return red.getPixel(x, y);
 	}
 }

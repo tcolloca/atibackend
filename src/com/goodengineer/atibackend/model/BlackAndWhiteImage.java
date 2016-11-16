@@ -40,7 +40,7 @@ public class BlackAndWhiteImage implements Image {
 	@Override
 	public Image clone() {
 		Band red = this.grays.clone();
-		return new BlackAndWhiteImage(grays);
+		return new BlackAndWhiteImage(red);
 	}
 
 	@Override
