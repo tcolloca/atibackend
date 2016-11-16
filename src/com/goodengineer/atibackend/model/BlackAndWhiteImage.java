@@ -1,5 +1,9 @@
 package com.goodengineer.atibackend.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.goodengineer.atibackend.transformation.Transformation;
 
 public class BlackAndWhiteImage implements Image {
@@ -37,5 +41,15 @@ public class BlackAndWhiteImage implements Image {
 	public Image clone() {
 		Band red = this.grays.clone();
 		return new BlackAndWhiteImage(grays);
+	}
+
+	@Override
+	public List<Band> getBands() {
+		return Arrays.asList(grays);
+	}
+
+	@Override
+	public double[] getColor(int x, int y) {
+		return new double[] {getPixel(x, y)};
 	}
 }
