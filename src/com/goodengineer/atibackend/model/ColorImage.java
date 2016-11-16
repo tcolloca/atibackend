@@ -66,4 +66,8 @@ public class ColorImage implements Image {
 	public List<Band> getBands() {
 		return Arrays.asList(red, green, blue);
 	}
+
+	public int getGray(int x, int y) {
+		return red.getPixel(x, y);
+	}
 }

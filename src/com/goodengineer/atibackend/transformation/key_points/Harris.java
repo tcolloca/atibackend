@@ -59,7 +59,6 @@ public class Harris {
 		gaussTransformation.transform(Ixy);
 
 		Band maxima = band.clone();
-//		PriorityQueue<PixelNode> heap = new PriorityQueue<>(10, Collections.<PixelNode>reverseOrder());
 		
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
@@ -67,7 +66,6 @@ public class Harris {
 				double iy2 = Iy2.getRawPixel(x, y);
 				double ixy = Ixy.getRawPixel(x, y);
 				double newColor = (ix2 * iy2 - ixy * ixy) - HARRIS_K * (ix2 + iy2) * (ix2 + iy2);
-//				double newColor = (ix2 * iy2 - ixy * ixy) / (ix2 + iy2 + HARRIS_K);
 				maxima.setRawPixel(x, y, newColor);
 			}
 		}
@@ -81,31 +79,6 @@ public class Harris {
 			}
 		}
 
-//		for (int i = 0; i < keyPointsAmount; i++) {
-//			PixelNode pixelNode = heap.poll();
-//			keyPoints.add(new Point(pixelNode.x, pixelNode.y));
-//		}
 		return keyPoints;
-	}
-	
-	private static class PixelNode implements Comparable<PixelNode> {
-
-		public final int x;
-		public final int y;
-		private final double value;
-		
-		public PixelNode(int x, int y, double value) {
-			this.x = x;
-			this.y = y;
-			this.value = value;
-		}
-		
-		@Override
-		public int compareTo(PixelNode o) {
-			if (value - o.value < 0) return -1;
-			else if (value - o.value > 0) return 1;
-			return 0;
-		}
-		
 	}
 }
