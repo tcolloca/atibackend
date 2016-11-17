@@ -1,11 +1,12 @@
-package com.goodengineer.atibackend.transformation;
+package com.goodengineer.atibackend.transformation.canny;
 
 import com.goodengineer.atibackend.model.Band;
+import com.goodengineer.atibackend.transformation.Transformation;
 import com.goodengineer.atibackend.transformation.filter.FilterTransformation;
 import com.goodengineer.atibackend.util.MaskFactory;
 import com.goodengineer.atibackend.util.MaskFactory.Direction;
 
-public class CannyTransformation implements Transformation {
+public class NoMaxTransformation implements Transformation {
 
 	private enum PHI {
 		P0(0, 1),
@@ -84,13 +85,13 @@ public class CannyTransformation implements Transformation {
 			return PHI.P0;
 		} else if (degrees <= 67.5) {
 //			green = 45
-			return PHI.P45;
+			return PHI.P135;
 		} else if (degrees <= 112.5) {
 //			blue = 90
 			return PHI.P90;
 		} else {
 //			red = 135
-			return PHI.P135;
+			return PHI.P45;
 		}
 	}
 }
