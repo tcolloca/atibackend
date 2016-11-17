@@ -18,7 +18,7 @@ import com.goodengineer.atibackend.util.Point;
 
 public class ObjectTracker {
 
-	private static final int Na = 100;
+	private static final int Na = 1000;
 	private static final int Ng = 5;
 	private static final int sigma = 1;
 	
@@ -42,9 +42,11 @@ public class ObjectTracker {
 	
 	public void track() {
 		refreshPixels();
+		double time = System.currentTimeMillis();
 		firstCycle();
 		secondCycle();
-		paintLOut();
+		System.out.println("Tracking time(s): " + (System.currentTimeMillis() - time)/1000);
+		paintBorder(image);
 	}
 	
 	private void firstCycle() {
@@ -95,15 +97,19 @@ public class ObjectTracker {
 		}
 	}
 	
-	private void paintLOut() {
+	public void paintBorder(Image baseImage) {
 		for (Pixel pixel : lOut) {
-			if (!pixel.pixelType.equals(PixelType.LOUT)) {
-				System.out.println("NOT LOUT: " + pixel);
+			baseImage.getBands().get(0).setPixel(pixel.x, pixel.y, 255);
+			if (baseImage.getBands().size() >= 3) {
+				baseImage.getBands().get(1).setPixel(pixel.x, pixel.y, 170);
+				baseImage.getBands().get(2).setPixel(pixel.x, pixel.y, 170);
 			}
-			image.getBands().get(0).setPixel(pixel.x, pixel.y, 255);
-			if (image.getBands().size() >= 3) {
-				image.getBands().get(1).setPixel(pixel.x, pixel.y, 170);
-				image.getBands().get(2).setPixel(pixel.x, pixel.y, 170);
+		}
+		for (Pixel pixel : lIn) {
+			baseImage.getBands().get(0).setPixel(pixel.x, pixel.y, 255);
+			if (baseImage.getBands().size() >= 3) {
+				baseImage.getBands().get(1).setPixel(pixel.x, pixel.y, 170);
+				baseImage.getBands().get(2).setPixel(pixel.x, pixel.y, 170);
 			}
 		}
 	}
@@ -242,7 +248,12 @@ public class ObjectTracker {
 	}
 	
 	private double forceD(Pixel pixel) {
-		return Math.log(isInRegion(inColorAverage, pixel) / isInRegion(outColorAverage, pixel));
+		if (isInRegion(inColorAverage, pixel) > 0.75) {
+			return 1;
+		} else {
+			return -1;
+		}
+//		return Math.log(isInRegion(inColorAverage, pixel) / (isInRegion(outColorAverage, pixel)));
 	}
 	
 	private double forceS(Pixel pixel) {
@@ -259,7 +270,7 @@ public class ObjectTracker {
 	}
 	
 	private double isInRegion (double[] regionAvg, Pixel pixel) {
-		return 1 - norm2(sub(pixel.color, regionAvg)) / (256 * 256 * pk);
+		return 1 - norm2(sub(pixel.color, regionAvg)) / (256 * pk);
 	}
 	
 	private List<Pixel> neighbours(Pixel pixel) {
