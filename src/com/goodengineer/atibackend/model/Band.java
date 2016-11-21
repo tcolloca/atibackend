@@ -105,6 +105,11 @@ public class Band {
 		}
 		return (int) Math.round(getRawPixel(x, y));
 	}
+	
+	public int getPixelNormalized(int x, int y) {
+		double pixel = getRawPixel(x, y);
+		return (int) Math.round(rawToNormal.apply(pixel));
+	}
 
 	public void setPixel(int x, int y, int color) {
 		if (hasInvalidValues()) {
