@@ -15,17 +15,24 @@ public class HysteresisTransformation implements Transformation {
 	
 	@Override
 	public void transform(Band band) {
+		double realL1 = band.map(l1);
+		double realL2 = band.map(l2);
+		double min = band.getValidMin();
 		boolean[][] visited = new boolean[band.getWidth()][band.getHeight()];
-		double[][] result = new double[band.getWidth()][band.getHeight()];
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
 				if (visited[x][y]) continue;
-				if (band.getPixelNormalized(x, y) < l1) {
-					result[x][y] = 0;
+				if (band.getRawPixel(x, y) < realL1) {
+					band.setRawPixel(x, y, min);
 					visited[x][y] = true;
 				}
-				else if (band.getPixelNormalized(x, y) > l2) {
-					markBorders(band, result, x, y, visited);
+				else if (band.getRawPixel(x, y) > realL2) {
+					band.setRawPixel(x, y, band.getValidMax());
+					visited[x][y] = true;
+					markBorders(band, x+1, y, visited);
+					markBorders(band, x-1, y, visited);
+					markBorders(band, x, y+1, visited);
+					markBorders(band, x, y-1, visited);
 				}
 			}
 		}
@@ -33,23 +40,23 @@ public class HysteresisTransformation implements Transformation {
 //		Get rid of isolated l1<p<l2 pixels
 		for (int x = 0; x < band.getWidth(); x++) {
 			for (int y = 0; y < band.getHeight(); y++) {
-				if (!visited[x][y]) result[x][y] = 0;
+				if (!visited[x][y]) band.setRawPixel(x, y, min);
 			}
 		}
-		
-		band.setPixels(result);
 	}
 	
-	private void markBorders(Band band, double[][] result, int x, int y, boolean[][] visited) {
+	private void markBorders(Band band, int x, int y, boolean[][] visited) {
 		if (x < 0 || y < 0 || x >= band.getWidth() || y >= band.getHeight()) return;
 		if (visited[x][y]) return;
-		int p = band.getPixelNormalized(x, y);
-		if (!(l1 <= p && p <= l2)) return;
+		double p = band.getRawPixel(x, y);
+		double realL1 = band.map(l1);
+		double realL2 = band.map(l2);
+		if (!(realL1 <= p && p <= realL2)) return;
 		visited[x][y] = true;
-		result[x][y] = 255.0;
-		markBorders(band, result, x + 1, y, visited);
-		markBorders(band, result, x - 1, y, visited);
-		markBorders(band, result, x, y + 1, visited);
-		markBorders(band, result, x, y - 1, visited);
+		band.setRawPixel(x, y, band.getValidMax());
+		markBorders(band, x + 1, y, visited);
+		markBorders(band, x - 1, y, visited);
+		markBorders(band, x, y + 1, visited);
+		markBorders(band, x, y - 1, visited);
 	}
 }

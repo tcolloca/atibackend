@@ -33,7 +33,7 @@ public class LineHoughTransformation implements Transformation {
 					for (int h = 0; h < band.getHeight(); h++) {
 						double pixel = band.getPixel(w, h);
 						if (pixel == 255) {
-							if (Math.abs(w * cos + h* sin - dist) < eps) {
+							if (Math.abs(w * cos + h * sin - dist) < eps) {
 								acum[angleIndex][distIndex]++;
 							}	
 						}
