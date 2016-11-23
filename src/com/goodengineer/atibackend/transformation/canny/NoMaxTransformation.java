@@ -36,7 +36,6 @@ public class NoMaxTransformation implements Transformation {
 				pixels[x][y] = borderValue(dx, dy, x, y);
 			}
 		}
-//		TODO: implement histeresis
 		band.setPixels(pixels);
 	}
 	
@@ -82,13 +81,13 @@ public class NoMaxTransformation implements Transformation {
 		
 		if (degrees <= 22.5 || degrees >= 157.5) {
 //			yellow = 0
-			return PHI.P0;
+			return PHI.P90;
 		} else if (degrees <= 67.5) {
 //			green = 45
 			return PHI.P135;
 		} else if (degrees <= 112.5) {
 //			blue = 90
-			return PHI.P90;
+			return PHI.P0;
 		} else {
 //			red = 135
 			return PHI.P45;
