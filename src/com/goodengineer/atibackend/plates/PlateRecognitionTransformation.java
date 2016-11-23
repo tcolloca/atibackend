@@ -45,10 +45,10 @@ public class PlateRecognitionTransformation implements Transformation {
 		
 		double[][] newPixels = new double[band.getWidth()][band.getHeight()];
 		for (Component component : components) {
-			component.getRotation(newPixels);
-//			for (int[] pixel : component.getPixels()) {
-//				newPixels[pixel[0]][pixel[1]] = 255;
-//			}
+//			component.getRotation(newPixels);
+			for (int[] pixel : component.getPixels()) {
+				newPixels[pixel[0]][pixel[1]] = 255;
+			}
 		}
 		band.setPixels(newPixels);
 	}
