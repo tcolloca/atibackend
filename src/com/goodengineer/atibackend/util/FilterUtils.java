@@ -16,18 +16,17 @@ public class FilterUtils {
 
 	public static double applyMask(Band band, double[][] mask, int x, int y) {
 		double count = 0;
-		int size = mask.length;
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				count += getWithOffset(band, x, y, i, j, size) * mask[i][j];
+		for (int i = 0; i < mask.length; i++) {
+			for (int j = 0; j < mask[0].length; j++) {
+				count += getWithOffset(band, x, y, i, j, mask.length, mask[0].length) * mask[i][j];
 			}
 		}
 		return count;
 	}
 
-	public static double getWithOffset(Band band, int x, int y, int i, int j, int size) {
-		int xOffset = -(size - 1) / 2 + j;
-		int yOffset = -(size - 1) / 2 + i;
+	public static double getWithOffset(Band band, int x, int y, int i, int j, int width, int height) {
+		int xOffset = -(width - 1) / 2 + i;
+		int yOffset = -(height - 1) / 2 + j;
 		int relativeX = x + xOffset;
 		int relativeY = y + yOffset;
 		if (relativeX < 0) {

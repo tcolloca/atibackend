@@ -1,5 +1,9 @@
 package com.goodengineer.atibackend.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.goodengineer.atibackend.util.Function;
 import com.goodengineer.atibackend.util.LinearFunction;
 
@@ -188,5 +192,41 @@ public class Band {
 
 	public String getName() {
 		return name == null ? "gray" : name;
+	}
+	
+	public boolean isValid(int x, int y) {
+		return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
+	}
+	
+
+	public List<int[]> neighbours(int x, int y, boolean use8Neigh) {
+		List<int[]> neighDirs = new ArrayList<>();
+		neighDirs.addAll(Arrays.asList(new int[][]{{1, 0},{0, 1}, {-1, 0}, {0, -1}}));
+		List<int[]> neigh8Dirs = new ArrayList<>();
+		neigh8Dirs.addAll(Arrays.asList(new int[][]{{1, 1}, {-1, 1}, {-1, -1}, {1, -1}}));
+		if (use8Neigh) {
+			neighDirs.addAll(neigh8Dirs);
+		}
+		List<int[]> neighs = new ArrayList<>();
+		for (int[] neighDir : neighDirs) {
+			if (isValid(x + neighDir[0], y + neighDir[1])) {
+				neighs.add(new int[]{x + neighDir[0], y + neighDir[1]});
+			}
+		}
+		return neighs;
+	}
+
+	public Band subRegion(int minX, int minY, int maxX, int maxY) {
+		minX = Math.max(0, minX);
+		minY = Math.max(0, minY);
+		maxX = Math.min(getWidth(), maxX);
+		maxY = Math.min(getHeight(), maxY);
+		double[][] subPixels = new double[maxX - minX + 1][maxY - minY + 1];
+		for (int x = minX; x < maxX; x++) {
+			for (int y = minY; y < maxY; y++) {
+				subPixels[x - minX][y - minY] = pixels[x][y];
+			}
+		}
+		return new Band(subPixels);
 	}
 }

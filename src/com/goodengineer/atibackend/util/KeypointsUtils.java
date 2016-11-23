@@ -18,10 +18,11 @@ public class KeypointsUtils {
       case "B":
         color = rgb[2];
         break;
-      case "Gray":
+      case "gray":
         color = (rgb[0] + rgb[1] + rgb[2]) / 3;
         break;
       default:
+    	  System.out.println(band.getName());
         throw new IllegalStateException();
     }
     for (Point point: points) {

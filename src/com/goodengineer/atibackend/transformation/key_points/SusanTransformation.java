@@ -33,7 +33,7 @@ public class SusanTransformation implements Transformation {
         for (int i = 0; i < size; i++) {
           for (int j = 0; j < size; j++) {
             if (mask[i][j] == 1) {
-              double r = FilterUtils.getWithOffset(band, x, y, i, j, size);
+              double r = FilterUtils.getWithOffset(band, x, y, i, j, size, size);
               count += Math.abs((r0 - r)) < threshold ? 1 : 0;
             }
           }

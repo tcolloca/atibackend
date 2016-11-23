@@ -18,6 +18,7 @@ public class LinearFunction implements Function<Double, Double> {
 	public Double apply(Double input) {
 		double m = (y2 - y1) / (x2 - x1);
 		double b = y1 - m * x1;
+//		System.out.println(m * input + b);
 		return m * input + b;
 	}
 }

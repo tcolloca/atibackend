@@ -49,7 +49,11 @@ public class LineHoughTransformation implements Transformation {
 		
 		for (int angleIndex = 0; angleIndex < angleCount; angleIndex++) {
 			for (int distIndex = 0; distIndex < distCount; distIndex++) {
+//				System.out.println(String.format("angle: %g, dist: %g, count: %d", getAngle(angleIndex),
+//						getDist(diag, distIndex), acum[angleIndex][distIndex]));
 				if (acum[angleIndex][distIndex] > threshold) {
+					System.out.println(String.format("angle: %g, dist: %g, count: %d", getAngle(angleIndex),
+							getDist(diag, distIndex), acum[angleIndex][distIndex]));
 					drawLine(getAngle(angleIndex), getDist(diag, distIndex), band);
 				}
 			}
@@ -65,8 +69,6 @@ public class LineHoughTransformation implements Transformation {
 	}
 	
 	private void drawLine(double angle, double dist, Band band) {
-		System.out.println(angle);
-		System.out.println(dist);
 		double cos = Math.cos(angle);
 		double sin = Math.sin(angle);
 		for (int w = 0; w < band.getWidth(); w++) {
