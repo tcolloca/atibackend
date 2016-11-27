@@ -219,11 +219,11 @@ public class Band {
 	public Band subRegion(int minX, int minY, int maxX, int maxY) {
 		minX = Math.max(0, minX);
 		minY = Math.max(0, minY);
-		maxX = Math.min(getWidth(), maxX);
-		maxY = Math.min(getHeight(), maxY);
+		maxX = Math.min(getWidth() - 1, maxX);
+		maxY = Math.min(getHeight() - 1, maxY);
 		double[][] subPixels = new double[maxX - minX + 1][maxY - minY + 1];
-		for (int x = minX; x < maxX; x++) {
-			for (int y = minY; y < maxY; y++) {
+		for (int x = minX; x <= maxX; x++) {
+			for (int y = minY; y <= maxY; y++) {
 				subPixels[x - minX][y - minY] = pixels[x][y];
 			}
 		}

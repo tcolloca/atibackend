@@ -26,17 +26,26 @@ public class KeypointsUtils {
         throw new IllegalStateException();
     }
     for (Point point: points) {
+      boolean painted = false;
       if (point.x - 1 >= 0) {
         band.setPixel(point.x - 1, point.y, color);
+        painted = true;
       }
       if (point.y - 1 >= 0) {
         band.setPixel(point.x, point.y - 1, color);
+        painted = true;
       }
       if (point.x + 1 < band.getWidth()) {
         band.setPixel(point.x + 1, point.y, color);
+        painted = true;
       }
       if (point.y + 1 < band.getHeight()) {
         band.setPixel(point.x, point.y + 1, color);
+        painted = true;
+      }
+      
+      if (!painted) {
+    	  band.setPixel(point.x, point.y, color);
       }
     }
   }

@@ -33,4 +33,30 @@ public class VectorUtils {
 		}
 		return Math.sqrt(acum);
 	}
+
+	public static double[] multiply(double[][] A, double[] v) {
+		double[] u = new double[A.length];
+		for (int i = 0; i < A.length; i++) {
+			double acum = 0;
+			for (int j = 0; j < A[0].length; j++) {
+				acum += A[i][j] * v[j];
+			}
+			u[i] = acum;
+		}
+		return u;
+	}
+
+	public static double[][] inv(double[][] m) {
+		double[][] ans = new double[2][2];
+		double a = m[0][0];
+		double b = m[0][1];
+		double c = m[1][0];
+		double d = m[1][1];
+		double det = a*d - b*c;
+		ans[0][0] = d / det;
+		ans[0][1] = -b / det;
+		ans[1][0] = -c / det;
+		ans[1][1] = a / det;
+		return ans;
+	}
 }
