@@ -8,11 +8,9 @@ import java.util.Set;
 
 import com.goodengineer.atibackend.model.Band;
 import com.goodengineer.atibackend.plates.hough.CustomLineHough;
-import com.goodengineer.atibackend.transformation.NegativeTransformation;
 import com.goodengineer.atibackend.transformation.filter.MultiFilterTransformation;
 import com.goodengineer.atibackend.transformation.filter.pixelRules.NormPixelRule;
 import com.goodengineer.atibackend.transformation.threshold.OtsuThresholdingTransformation;
-import com.goodengineer.atibackend.util.KeypointsUtils;
 import com.goodengineer.atibackend.util.MaskFactory;
 import com.goodengineer.atibackend.util.MaskFactory.Direction;
 import com.goodengineer.atibackend.util.Point;
@@ -81,7 +79,7 @@ class Component {
 	public List<Point> getCorners() {
 		int minSubRegionCol = minCol == 0 ? minCol: minCol - 1;
 		int minSubRegionRow = minRow == 0 ? minRow: minRow - 1;
-		Band subBand = band.subRegion(minSubRegionCol, minRow - 1, maxCol + 1, maxRow + 1);
+		Band subBand = band.subRegion(minSubRegionCol, minSubRegionRow, maxCol + 1, maxRow + 1);
 		int width = subBand.getWidth();
 		int height = subBand.getHeight();
 		double[][] newSubPixels = new double[width][height];
@@ -140,5 +138,18 @@ class Component {
 			fixedCorners.add(new Point(x + minSubRegionCol, y + minSubRegionRow));
 		}
 		return fixedCorners;
+	}
+
+	public List<Point> getRectangleCorners() {
+		List<Point> corners = new ArrayList<>();
+		corners.add(new Point(minCol, minRow));
+		corners.add(new Point(maxCol, minRow));
+		corners.add(new Point(minCol, maxRow));
+		corners.add(new Point(maxCol, maxRow));
+		return corners;
+	}
+
+	public int height() {
+		return maxRow - minRow + 1;
 	}
 }

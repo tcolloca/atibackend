@@ -27,7 +27,6 @@ class ComponentFinder {
 						if (!pixelsVisited[px][py]) {
 							pixelsVisited[px][py] = true;
 							component.addPixel(px, py);
-							int i = 0;
 							for (int[] neigh : band.neighbours(px, py, USE_8_NEIGH)) {
 								if (!pixelsVisited[neigh[0]][neigh[1]]) {
 									if (band.getPixel(neigh[0], neigh[1]) == color) {

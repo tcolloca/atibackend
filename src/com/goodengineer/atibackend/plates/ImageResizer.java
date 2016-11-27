@@ -1,6 +1,5 @@
 package com.goodengineer.atibackend.plates;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.goodengineer.atibackend.model.Band;
@@ -37,8 +36,6 @@ public class ImageResizer {
 			bottomCorner = topCorner;
 			topCorner = aux;
 		}
-		System.out.println(String.format("min: %s, max: %s, bot: %s, top: %s", 
-				minCorner, maxCorner, bottomCorner, topCorner));
 		
 		double[][] T1 = new double[2][2];
 		double[][] T2 = new double[2][2];
@@ -68,13 +65,6 @@ public class ImageResizer {
 		
 		T1 = VectorUtils.inv(T1);
 		T2 = VectorUtils.inv(T2);
-		
-		System.out.println("T1");
-		System.out.println(Arrays.toString(T1[0]));
-		System.out.println(Arrays.toString(T1[1]));
-		System.out.println("T2");
-		System.out.println(Arrays.toString(T2[0]));
-		System.out.println(Arrays.toString(T2[1]));
 		
 		double[][] pixels = new double[width][height];
 		for (int i = 0; i < width; i++) {
