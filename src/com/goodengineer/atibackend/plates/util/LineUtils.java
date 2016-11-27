@@ -1,4 +1,4 @@
-package com.goodengineer.atibackend.plates;
+package com.goodengineer.atibackend.plates.util;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,6 +7,7 @@ import java.util.NavigableSet;
 import java.util.TreeSet;
 
 import com.goodengineer.atibackend.model.Band;
+import com.goodengineer.atibackend.plates.Line;
 import com.goodengineer.atibackend.util.Point;
 
 public class LineUtils {

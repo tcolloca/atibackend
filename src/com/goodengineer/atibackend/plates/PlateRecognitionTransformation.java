@@ -1,15 +1,22 @@
 package com.goodengineer.atibackend.plates;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.goodengineer.atibackend.model.Band;
+import com.goodengineer.atibackend.model.ColorImage;
+import com.goodengineer.atibackend.plates.util.BufferedImageColorImageTranslator;
+import com.goodengineer.atibackend.plates.util.FileHelper;
 import com.goodengineer.atibackend.transformation.Transformation;
+import com.goodengineer.atibackend.transformation.threshold.OtsuThresholdingTransformation;
 import com.goodengineer.atibackend.transformation.threshold.SauvolaThresholdingTransformation;
 import com.goodengineer.atibackend.util.Point;
 
 public class PlateRecognitionTransformation implements Transformation {
 
+	private static int imageName = 0;
+	
 	private static final double MIN_ASPECT_RATIO = 2;
 	private static final double MAX_ASPECT_RATIO = 5;
 	private static final double MIN_EULER = 3;
@@ -57,25 +64,30 @@ public class PlateRecognitionTransformation implements Transformation {
 			if (corners.size() == 4) {
 				Band resizedBand = ImageResizer.resizeQuad(original, corners, PLATE_WIDTH, PLATE_HEIGHT);
 				List<Band> digits = DigitsExtractor.extract(resizedBand, 6);
-				if (!digits.isEmpty()) {
-					double[][] allDigits = new double[(digits.size() + 1) * 25][50];
-					int i = 0;
-					for (Band digit : digits) {
-						for (int x = 0; x < digit.getWidth(); x++) {
-							for (int y = 0; y < digit.getHeight(); y++) {
-								allDigits[i * 25 + x][y] = digit.getPixel(x, y);
-							}
-						}
-						i++;
-						for (int k = 0; k < 5; k++) {
-							for (int y = 0; y < digit.getHeight(); y++) {
-								allDigits[i * 25 + k][y] = 127;
-							}
-						}
-					}
-					band.setPixels(allDigits);
-					break;
+				for (Band digit : digits) {
+					new OtsuThresholdingTransformation().transform(digit);
+					ColorImage image = new ColorImage(digit, digit, digit);
+					BufferedImage buffImage = new BufferedImageColorImageTranslator().translateBackward(image);
+					FileHelper.saveImage(buffImage, "C:\\Users\\Tomás\\Documents\\digits\\" + imageName++ + ".png");
 				}
+//					double[][] allDigits = new double[(digits.size() + 1) * 25][50];
+//					int i = 0;
+//					for (Band digit : digits) {
+//						for (int x = 0; x < digit.getWidth(); x++) {
+//							for (int y = 0; y < digit.getHeight(); y++) {
+//								allDigits[i * 25 + x][y] = digit.getPixel(x, y);
+//							}
+//						}
+//						i++;
+//						for (int k = 0; k < 5; k++) {
+//							for (int y = 0; y < digit.getHeight(); y++) {
+//								allDigits[i * 25 + k][y] = 127;
+//							}
+//						}
+//					}
+//					band.setPixels(allDigits);
+//					break;
+//				}
 			}
 		}
 		System.out.println("Finished!");

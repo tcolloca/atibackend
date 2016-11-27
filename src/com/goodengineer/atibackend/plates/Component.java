@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.goodengineer.atibackend.model.Band;
 import com.goodengineer.atibackend.plates.hough.CustomLineHough;
+import com.goodengineer.atibackend.plates.util.LineUtils;
 import com.goodengineer.atibackend.transformation.filter.MultiFilterTransformation;
 import com.goodengineer.atibackend.transformation.filter.pixelRules.NormPixelRule;
 import com.goodengineer.atibackend.transformation.threshold.OtsuThresholdingTransformation;

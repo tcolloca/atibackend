@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.goodengineer.atibackend.model.Band;
-import com.goodengineer.atibackend.transformation.NegativeTransformation;
 import com.goodengineer.atibackend.transformation.threshold.OtsuThresholdingTransformation;
 import com.goodengineer.atibackend.util.Point;
 
