@@ -1,5 +1,8 @@
 package com.goodengineer.atibackend.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.goodengineer.atibackend.model.Band;
 
 public class FilterUtils {
@@ -40,5 +43,15 @@ public class FilterUtils {
 			relativeY = band.getHeight()  - 1;
 		}
 		return band.getPixel(relativeX, relativeY);
+	}
+	
+	public static double[] getPixelsInMask(Band band, int x, int y, int size) {
+		double[] pixels = new double[size * size];
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				pixels[i * size + j] = getWithOffset(band, x, y, i, j, size, size);
+			}
+		}
+		return pixels;
 	}
 }
