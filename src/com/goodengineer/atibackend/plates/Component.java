@@ -19,6 +19,8 @@ import com.goodengineer.atibackend.util.Point;
 
 class Component {
 	
+	private static final double MAX_ANGLE = 30;
+	
 	private static final int MIN_COMPONENT_SIZE = 20;
 	
 	private final Band band;
@@ -117,7 +119,8 @@ class Component {
 	    new OtsuThresholdingTransformation().transform(subBand);
 	    
 	    System.out.println("	Finding lines...");
-		List<Line> lines = new CustomLineHough(15, 1, (int) (width * 0.8), (int) (height * 0.8)).getLines(subBand);
+		List<Line> lines = new CustomLineHough(MAX_ANGLE, 1, (int) (width * 0.8), (int) (height * 0.8)).getLines(subBand);
+		System.out.println(lines);
 		System.out.println("	Finding corners...");
 		List<Point> corners = LineUtils.getCorners(lines);
 		List<Point> fixedCorners = new ArrayList<>();
