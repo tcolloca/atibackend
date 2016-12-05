@@ -34,8 +34,8 @@ public class PlateRecognitionTransformation implements Transformation {
 	
 	public PlateRecognitionTransformation() {
 		super();
-		letterClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/lettersClassifier.txt");
-		numClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/numClassifier.txt");
+//		letterClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/lettersClassifier.txt");
+//		numClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/numClassifier.txt");
 	}
 
 	@Override
@@ -80,18 +80,19 @@ public class PlateRecognitionTransformation implements Transformation {
 		System.out.println("Finding corners...");
 		for (Component component : components) {
 			List<Point> corners = component.getCorners();
+			System.out.println("get corners");
 			if (corners.size() == 4) {
 				Band resizedBand = ImageResizer.resizeQuad(original, corners, PLATE_WIDTH, PLATE_HEIGHT);
-//				List<Band> digits = DigitsExtractor.extract(resizedBand, 6);
-//				if (digits.size() < 6) continue;
-//				for (int i = 0; i < 6; i++) {
-//					Band digit = digits.get(i);
-//					new OtsuThresholdingTransformation().transform(digit);
-//					ColorImage image = new ColorImage(digit, digit, digit);
-//					BufferedImage buffImage = new BufferedImageColorImageTranslator().translateBackward(image);
-//					String fileName = "_temp_" + i + ".png";
-//					FileHelper.saveImage(buffImage, fileName);
-//					
+				List<Band> digits = DigitsExtractor.extract(resizedBand, 6);
+				if (digits.size() < 6) continue;
+				for (int i = 0; i < 6; i++) {
+					Band digit = digits.get(i);
+					new OtsuThresholdingTransformation().transform(digit);
+					ColorImage image = new ColorImage(digit, digit, digit);
+					BufferedImage buffImage = new BufferedImageColorImageTranslator().translateBackward(image);
+					String fileName = "_temp_" + i + ".png";
+					FileHelper.saveImage(buffImage, fileName);
+					
 //					if (i <= 2) {
 ////						letter
 //						plateNumber.append(letterClassifier.classify(FeatureExtractor.extract(fileName)));
@@ -99,9 +100,9 @@ public class PlateRecognitionTransformation implements Transformation {
 ////						digit
 //						plateNumber.append(numClassifier.classify(FeatureExtractor.extract(fileName)));
 //					}
-//				}
+				}
 				KeypointsUtils.paintPoints(band, new int[]{127, 127, 127}, corners);
-//				band.setPixels(resizedBand.pixels);
+				band.setPixels(resizedBand.pixels);
 			}
 		}
 		System.out.println("Finished! Plate number is: " + plateNumber.toString());

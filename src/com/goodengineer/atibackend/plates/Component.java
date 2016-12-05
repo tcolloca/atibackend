@@ -119,8 +119,10 @@ class Component {
 	    new OtsuThresholdingTransformation().transform(subBand);
 	    
 	    System.out.println("	Finding lines...");
-		List<Line> lines = new CustomLineHough(MAX_ANGLE, 1, (int) (width * 0.8), (int) (height * 0.8)).getLines(subBand);
-		System.out.println(lines);
+		List<Line> lines = new CustomLineHough(MAX_ANGLE, 1, (int) (width * 0.8), (int) (height * 0.5)).getLines(subBand);
+//		CustomLineHough.paintLines(subBand, lines);
+//		band.setPixels(subBand.pixels);
+//		System.out.println(lines);
 		System.out.println("	Finding corners...");
 		List<Point> corners = LineUtils.getCorners(lines);
 		List<Point> fixedCorners = new ArrayList<>();

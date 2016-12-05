@@ -20,14 +20,14 @@ public class CustomLineHough {
 	public CustomLineHough(double maxAngle, double eps, int t1, int t2) {
 		super();
 		this.maxAngle = maxAngle;
-		this.slopeCount = (int) (maxAngle * 10);
+		this.slopeCount = 50;
 		this.eps = eps;
 		this.t1 = t1;
 		this.t2 = t2;
 	}
 
 	public List<Line> getLines(Band band) {
-		double maxSlope = Math.tan(maxAngle);
+		double maxSlope = Math.tan(maxAngle * Math.PI / 180.0);
 		o1Count = band.getHeight();
 		o2Count = band.getWidth();
 
@@ -55,7 +55,6 @@ public class CustomLineHough {
 			double slope = getSlope(slopeIndex, maxSlope);
 			for (int originIndex = 0; originIndex < o2Count; originIndex++) {
 				double origin = getOrigin2(originIndex, band.getWidth());
-				
 				for (int x = 0; x < band.getHeight(); x++) {
 					for (int y = 0; y < band.getWidth(); y++) {
 						double pixel = band.getPixel(y, x);
@@ -100,5 +99,27 @@ public class CustomLineHough {
 	
 	private int getOrigin2(int originIndex, double maxLength) {
 		return (int) Math.round(maxLength / (double) (o2Count - 1) * originIndex);
+	}
+	
+	public static void paintLines(Band band, List<Line> lines) {
+		for (Line line : lines) {
+			if (!line.isVertical()) {
+				for (int x = 0; x < band.getWidth(); x++) {
+					for (int y = 0; y < band.getHeight(); y++) {
+						if (Math.abs(line.getSlope() * x + line.getOrigin() - y) < 1) {
+							band.setPixel(x, y, 127);
+						}
+					}
+				}
+			} else {
+				for (int x = 0; x < band.getHeight(); x++) {
+					for (int y = 0; y < band.getWidth(); y++) {
+						if (Math.abs(line.getSlope() * x + line.getOrigin() - y) < 1) {
+							band.setPixel(y, x, 127);
+						}
+					}
+				}
+			}
+		}
 	}
 }

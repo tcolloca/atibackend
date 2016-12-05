@@ -32,7 +32,6 @@ public class LineUtils {
 		List<Line> extremeHLines = getExtremeLines(hLines);
 		List<Line> extremeVLines = getExtremeLines(vLines);
 		
-		
 		for (Line hLine : extremeHLines) {
 			int b1 = hLine.getOrigin();
 			double m1 = hLine.getSlope();
