@@ -50,7 +50,7 @@ public class DigitsExtractor {
 		}
 		System.out.println(components.size() + " components left.");
 		
-		if (components.size() < digitsAmount - 1 || components.size() > digitsAmount + 2) {
+		if (components.size() < digitsAmount || components.size() > digitsAmount + 2) {
 			return digits;
 		}
 		
