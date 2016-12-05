@@ -15,7 +15,7 @@ import com.goodengineer.atibackend.util.Point;
 
 public class PlateRecognitionTransformation implements Transformation {
 
-	private static int imageName = 0;
+	private static int imageName = 600;
 	
 	private static final double MIN_ASPECT_RATIO = 2;
 	private static final double MAX_ASPECT_RATIO = 5;
@@ -68,7 +68,7 @@ public class PlateRecognitionTransformation implements Transformation {
 					new OtsuThresholdingTransformation().transform(digit);
 					ColorImage image = new ColorImage(digit, digit, digit);
 					BufferedImage buffImage = new BufferedImageColorImageTranslator().translateBackward(image);
-					FileHelper.saveImage(buffImage, "C:\\Users\\Tomás\\Documents\\digits\\" + imageName++ + ".png");
+					FileHelper.saveImage(buffImage, "C:\\Users\\Tomás\\Documents\\digits2\\" + imageName++ + ".png");
 				}
 //					double[][] allDigits = new double[(digits.size() + 1) * 25][50];
 //					int i = 0;
