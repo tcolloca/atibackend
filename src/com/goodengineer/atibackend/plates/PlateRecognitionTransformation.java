@@ -19,8 +19,6 @@ import com.goodengineer.atibackend.util.Point;
 
 public class PlateRecognitionTransformation implements Transformation {
 
-	private static int imageName = 0;
-	
 	private static final double MIN_ASPECT_RATIO = 1.5;
 	private static final double MAX_ASPECT_RATIO = 5;
 	private static final double MIN_EULER = 3;
@@ -34,8 +32,8 @@ public class PlateRecognitionTransformation implements Transformation {
 	
 	public PlateRecognitionTransformation() {
 		super();
-//		letterClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/lettersClassifier.txt");
-//		numClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/numClassifier.txt");
+		letterClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/lettersClassifier.txt");
+		numClassifier = ClassifierLoader.loadLogisticMulticlass("classifiers/numClassifier.txt");
 	}
 
 	@Override
@@ -93,13 +91,13 @@ public class PlateRecognitionTransformation implements Transformation {
 					String fileName = "_temp_" + i + ".png";
 					FileHelper.saveImage(buffImage, fileName);
 					
-//					if (i <= 2) {
-////						letter
-//						plateNumber.append(letterClassifier.classify(FeatureExtractor.extract(fileName)));
-//					} else {
-////						digit
-//						plateNumber.append(numClassifier.classify(FeatureExtractor.extract(fileName)));
-//					}
+					if (i <= 2) {
+//						letter
+						plateNumber.append(letterClassifier.classify(FeatureExtractor.extract(fileName)));
+					} else {
+//						digit
+						plateNumber.append(numClassifier.classify(FeatureExtractor.extract(fileName)));
+					}
 				}
 				KeypointsUtils.paintPoints(band, new int[]{127, 127, 127}, corners);
 				band.setPixels(resizedBand.pixels);

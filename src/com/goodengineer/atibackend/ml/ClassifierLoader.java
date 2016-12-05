@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class ClassifierLoader {
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new File(path));
+			sc.useLocale(Locale.US);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
