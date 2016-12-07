@@ -43,7 +43,7 @@ public class PlateRecognitionTransformation implements Transformation {
 		StringBuilder plateNumber = new StringBuilder();
 		
 		System.out.println("Thresholding with Sauvola...");
-		new SauvolaThresholdingTransformation(0.5, 128, 20).transform(band);
+		new SauvolaThresholdingTransformation(0.5, 128, 21).transform(band);
 		
 		System.out.println("Finding components...");
 		List<Component> rawComponents = ComponentFinder.findComponents(band, 0);

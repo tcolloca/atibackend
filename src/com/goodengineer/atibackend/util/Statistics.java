@@ -2,27 +2,31 @@ package com.goodengineer.atibackend.util;
 
 
 public class Statistics {
-	double[] data;
-	int size;
-
+	final double[] data;
+	final int size;
+	final double mean;
+	final double variance;
+	
 	public Statistics(double[] data) {
 		this.data = data;
 		size = data.length;
+		
+		double sum = 0;
+		double sumSq = 0;
+		for (double a : data) {
+			sum += a;
+			sumSq += a*a;
+		}
+		mean = sum / size;
+		variance = (sumSq - (sum*sum) / size) / size;
 	}
 
 	public double getMean() {
-		double sum = 0.0;
-		for (double a : data)
-			sum += a;
-		return sum / size;
+		return mean;
 	}
 
 	public double getVariance() {
-		double mean = getMean();
-		double temp = 0;
-		for (double a : data)
-			temp += (a - mean) * (a - mean);
-		return temp / size;
+		return variance;
 	}
 
 	public double getStdDev() {
