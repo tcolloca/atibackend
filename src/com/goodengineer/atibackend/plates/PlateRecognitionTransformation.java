@@ -14,7 +14,6 @@ import com.goodengineer.atibackend.plates.util.FileHelper;
 import com.goodengineer.atibackend.transformation.Transformation;
 import com.goodengineer.atibackend.transformation.threshold.OtsuThresholdingTransformation;
 import com.goodengineer.atibackend.transformation.threshold.SauvolaThresholdingTransformation;
-import com.goodengineer.atibackend.util.KeypointsUtils;
 import com.goodengineer.atibackend.util.Point;
 
 public class PlateRecognitionTransformation implements Transformation {
@@ -22,6 +21,7 @@ public class PlateRecognitionTransformation implements Transformation {
 	private static final double MIN_ASPECT_RATIO = 1.5;
 	private static final double MAX_ASPECT_RATIO = 5;
 	private static final double MIN_EULER = 3;
+	private static final double MAX_EULER = 13;
 	private static final double MAX_COMPONENT_SIZE_RATIO = 0.0100; 
 	private static final double MIN_COMPONENT_SIZE_RATIO = 0.0008;
 	private static final int PLATE_WIDTH = 228;
@@ -50,8 +50,6 @@ public class PlateRecognitionTransformation implements Transformation {
 		System.out.println(rawComponents.size() + " components found.");
 		
 		int size = band.getHeight() * band.getWidth();
-		int minComponentSize = (int) (MIN_COMPONENT_SIZE_RATIO * size);
-		int maxComponentSize = (int) (MAX_COMPONENT_SIZE_RATIO * size);
 		List<Component> components = new ArrayList<>();
 		System.out.println("Selecting components...");
 		for (Component component : rawComponents) {	
@@ -61,7 +59,7 @@ public class PlateRecognitionTransformation implements Transformation {
 			if (MIN_ASPECT_RATIO <= component.getAspectRatio()
 					&& component.getAspectRatio() <= MAX_ASPECT_RATIO
 					&& MIN_EULER <= component.eulerNumber()
-//					&& component.eulerNumber() <= MAX_EULER
+					&& component.eulerNumber() <= MAX_EULER
 					) {
 				components.add(component);
 			}
@@ -99,8 +97,6 @@ public class PlateRecognitionTransformation implements Transformation {
 						plateNumber.append(numClassifier.classify(FeatureExtractor.extract(fileName)));
 					}
 				}
-				KeypointsUtils.paintPoints(band, new int[]{127, 127, 127}, corners);
-				band.setPixels(resizedBand.pixels);
 			}
 		}
 		System.out.println("Finished! Plate number is: " + plateNumber.toString());
