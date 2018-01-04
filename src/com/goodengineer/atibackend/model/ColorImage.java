@@ -17,6 +17,10 @@ public class ColorImage implements Image {
 		this.green = green;
 		this.blue = blue;
 	}
+	
+	public ColorImage(int width, int height) {
+		this(new Band(width, height), new Band(width, height), new Band(width, height));
+	}
 
 	@Override
 	public void transform(Transformation transformation) {
@@ -72,5 +76,18 @@ public class ColorImage implements Image {
 }
 	public int getGray(int x, int y) {
 		return red.getPixel(x, y);
+	}
+
+	public void setColor(int x, int y, double[] color) {
+		red.setRawPixel(x, y, color[0]);
+		green.setRawPixel(x, y, color[1]);
+		blue.setRawPixel(x, y, color[2]);
+
+	}
+
+	public void setBands(List<Band> bands) {
+		red = bands.get(0);
+		green = bands.get(1);
+		blue = bands.get(2);
 	}
 }

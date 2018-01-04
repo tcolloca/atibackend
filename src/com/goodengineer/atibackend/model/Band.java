@@ -29,6 +29,10 @@ public class Band {
 		findMinAndMax();
 	}
 	
+	public Band(int width, int height) {
+		this(new double[width][height]);
+	}
+
 	public Band clone() {
 		double[][] newPixels = new double[pixels.length][pixels[0].length];
 		for (int i = 0; i < pixels.length; i++) {

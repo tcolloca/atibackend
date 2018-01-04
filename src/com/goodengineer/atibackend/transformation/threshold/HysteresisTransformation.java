@@ -14,7 +14,7 @@ public class HysteresisTransformation implements Transformation {
 	}
 	
 	@Override
-	public void transform(Band band) {
+	public void transform(Band band) { 
 		double realL1 = band.map(l1);
 		double realL2 = band.map(l2);
 		double min = band.getValidMin();
